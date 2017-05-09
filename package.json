@@ -1,0 +1,43 @@
+{
+  "name": "expressd",
+  "version": "0.5.0",
+  "description": "Framework for express apps",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "index.js",
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://fpercival@github.com/fpercival/expressd.git"
+  },
+  "keywords": [
+    "express",
+    "waterline"
+  ],
+  "author": "F. Percival",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "dot": "^1.1.1",
+    "express": "^4.14.1",
+    "express-session": "^1.15.2",
+    "nodemailer": "^4.0.1",
+    "nodeutils": "git+https://github.com/fpercival/nodeutils.git",
+    "onpromise": "^0.1.6",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "sails-disk": "^0.10.10",
+    "waterline": "^0.11.9"
+  },
+  "bugs": {
+    "url": "https://github.com/fpercival/expressd/issues"
+  },
+  "homepage": "https://github.com/fpercival/expressd#readme",
+  "devDependencies": {
+    "json_config": "git+https://github.com/fpercival/json_config.git"
+  }
+}

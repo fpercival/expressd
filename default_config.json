@@ -1,0 +1,56 @@
+{
+    "port": 2000,
+    "express": {
+        "session": {
+            "secret": "change_this",
+            "cookie": {}
+        },
+        "bodyParser": {
+            "urlencoded": { "extended": false },
+            "json": {"limit": "10mb"}
+        }
+    },
+    "db": {
+            "adapters": {
+                "disk": "sails-disk"
+            },
+            "connections": {
+                "default": {
+                    "adapter": "disk"
+                }
+            }
+    },
+    "env":{
+        "production": {
+            "db": {
+                "adapters": {
+                    "disk": "sails-disk",
+                    "mongo": "sails-mongo"
+                },
+                "connections": {
+                    "default": {
+                        "migrate": "safe",
+                        "adapter": "mongo",
+                        "host": "localhost",
+                        "port": 27017,
+                        "database": "expressd"
+                    }
+                },
+                "defaults": {
+                    "migrate": "safe"
+                }
+            }
+        }
+    },
+    "mail":{
+		"service": "Gmail",
+		"auth": {
+			"user": "mail_account@gmail.com",
+			"pass": "password"
+		}
+    },
+    "log": {
+        "filter": "*",
+        "level": "debug"
+    }
+}
