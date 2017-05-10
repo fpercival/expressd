@@ -1,4 +1,3 @@
-// todo, fix
 const salt = require('../salt');
 
 var model = {

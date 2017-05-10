@@ -46,6 +46,8 @@ function preparePassport(store){
 module.exports = {
     name: 'passport',
 
+    order: 15,
+
     init: function(next, app, opts){
         app.on('express.loading', function(express){
             express.use(passport.initialize());

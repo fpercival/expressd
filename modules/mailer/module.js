@@ -13,9 +13,26 @@ function Mailer(){
     let app;
     this.name = 'mailer';
 
+    this.order = 20;
+
     this.init = function(next, _app, opts){
         transport = nodemailer.createTransport( opts.mailer.mail );
         app = _app;
+        app.on('express.loading', function(express){
+            express.use(
+                (req, res, next)=>{
+                    req.sendMail = ()=>{
+                        let arg1 = arguments[0];
+                        if(typeof arg1 == "string"){
+                            return this.sendTemplate(arg1, arguments[1]);
+                        } else {
+                            return this.sendmail(arg1);
+                        }
+                    }
+                    next();
+            }
+            )
+        });
         next();
     };
 
@@ -39,6 +56,7 @@ function Mailer(){
             log.debug('mailing', mailObj );
             transport.sendMail(mailObj, function(err, info){
                 if(err){
+                    log.error(err);
                     reject(err);
                 } else {
                     resolve(info);

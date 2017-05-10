@@ -29,7 +29,7 @@ var defer = typeof setImmediate === 'function'
  */
 
 module.exports = {
-    name: 'session-store',
+    order: 10,
     init: function(next, app, opts){
         this.config = opts.express.session || {secret:'expressd_secret', cookie:{}};
         let sess = this.config;
