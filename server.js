@@ -1,10 +1,6 @@
-let config = require('json_config');
+let Expressd = require('./index');
 
-let APP = require('./index');
+let xpressd = new Expressd();
 
-config.init('.');
-
-let app = new APP(config);
-
-app.start();
+xpressd.start();
 
