@@ -14,7 +14,7 @@ function Mailer(){
     this.name = 'mailer';
 
     this.init = function(next, _app, opts){
-        transport = nodemailer.createTransport( opts.mail );
+        transport = nodemailer.createTransport( opts.mailer.mail );
         app = _app;
         next();
     };

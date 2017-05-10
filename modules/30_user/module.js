@@ -18,27 +18,29 @@ function Users(){
 
     this.init = function(next, _app, opts){
         app = _app;
+        let appName = opts.mailer.appname || opts.name || 'Expressd';
+        let noReply = opts.mailer.noreply || 'noreply@test.com';
         app.promise('get.mailer').then(
             mailer=>{
                 // Register templates
                 mailer.registerTemplate(
                     {
                         name: "register",
-                        from: 'MongoNotes <noreply@flusterapp.com>',
+                        from: appName + ' <'+ noReply +'>',
                         to: '{{=it.u.email}}',
-                        subject: 'MongoNotes Registration',
-                        text: 'Hi {{=it.u.name}}, \n\n welcome to MongoNotes. \n\n to confirm your registration, go to {{=it.url}} \n\n MongoNotes Team.',
-                        html: 'Hi <b>{{=it.u.name}}</b>, \n\n welcome to MongoNotes. \n\n to confirm your registration, click <a href=\"{{=it.url}}\">here</a>({{=it.url}}) \n\n MongoNotes Team.'
+                        subject: appName+' Registration',
+                        text: 'Hi {{=it.u.name}}, \n\n welcome to '+ appName + '. \n\n to confirm your registration, go to {{=it.url}} \n\n '+ appName + ' Team.',
+                        html: 'Hi <b>{{=it.u.name}}</b>, \n\n welcome to '+ appName + '. \n\n to confirm your registration, click <a href=\"{{=it.url}}\">here</a>({{=it.url}}) \n\n '+ appName + ' Team.'
                     }
                 ).then(
                     mailer.registerTemplate(
                         {
                             name: "resetPassword",
-                            from: 'MongoNotes <noreply@flusterapp.com>',
+                            from: appName + ' <'+ noReply +'>',
                             to: '{{=it.u.email}}',
-                            subject: 'MongoNotes Password reset',
-                            text: 'Hi {{=it.u.name}}, \n\n your password has been reset. \n\n The new password is \"{{=it.password}}\" \n\n MongoNotes Team.',
-                            html: 'Hi <b>{{=it.u.name}}</b>, \n\n your password has been reset. \n\n The new password is <b>{{=it.password}}</b> \n\n MongoNotes Team.'
+                            subject: appName + ' Password reset',
+                            text: 'Hi {{=it.u.name}}, \n\n your password has been reset. \n\n The new password is \"{{=it.password}}\" \n\n '+ appName + ' Team.',
+                            html: 'Hi <b>{{=it.u.name}}</b>, \n\n your password has been reset. \n\n The new password is <b>{{=it.password}}</b> \n\n '+ appName + ' Team.'
                         }
                     )
                 );

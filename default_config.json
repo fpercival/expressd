@@ -1,4 +1,5 @@
 {
+	"name": "My_Expressd",
     "port": 2000,
     "express": {
         "session": {
@@ -24,7 +25,6 @@
         "production": {
             "db": {
                 "adapters": {
-                    "disk": "sails-disk",
                     "mongo": "sails-mongo"
                 },
                 "connections": {
@@ -42,12 +42,16 @@
             }
         }
     },
-    "mail":{
-		"service": "Gmail",
-		"auth": {
-			"user": "mail_account@gmail.com",
-			"pass": "password"
-		}
+    "mailer":{
+		"name": "ExpressdApp",
+        "noreply": "noreply@your_mail_server.com",
+        "mail":{
+            "service": "Gmail",
+            "auth": {
+                "user": "mail_account@gmail.com",
+                "pass": "password"
+            }
+        }
     },
     "log": {
         "filter": "*",
