@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "files": [
-	  "index.js",
-	  "modules",
+    "index.js",
+    "modules",
     "lib"
   ],
   "repository": {
@@ -39,6 +39,9 @@
   },
   "homepage": "https://github.com/fpercival/expressd#readme",
   "devDependencies": {
-    "json_config": "git+https://github.com/fpercival/json_config.git"
+    "gulp": "^3.9.1",
+    "json_config": "git+https://github.com/fpercival/json_config.git",
+    "mocha": "^3.3.0",
+    "supertest": "^3.0.0"
   }
 }
