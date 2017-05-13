@@ -69,7 +69,7 @@ module.exports = [
         path: '/user/register',
         secure: false,
         method: 'post',
-        handler: function(req, res){
+        handler: function(req, res, store){
             var msg;
             var u = {
                 email: req.body.email,
@@ -84,7 +84,7 @@ module.exports = [
             }
             u.password = salt.salt(u.password, u.salt);
 
-            let store = req.orm;
+//            let store = req.orm;
             store.user.findOne({where:{email:u.email}}, function(err, usr){
                 if(err){
                     res.json({
