@@ -1,6 +1,6 @@
 {
 	"name": "expressd",
-	"version": "0.7.0",
+	"version": "0.7.1",
 	"description": "Framework for express apps",
 	"main": "index.js",
 	"scripts": {
