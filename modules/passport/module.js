@@ -35,6 +35,9 @@ function preparePassport(store){
     
     passport.deserializeUser(function(id, done) {
       User.findOne({where:{id:id}}, function(err, user) {
+          if(!user){
+              return done(err, null);
+          }
         user.password=undefined;
         user.salt=undefined;
         user.confirmcode=undefined;
