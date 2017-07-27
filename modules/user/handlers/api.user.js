@@ -16,7 +16,10 @@ module.exports = [
         path: '/user/login',
         secure: true,
         method: 'post',
-        handler: function(req, res){
+        handler: function(req, res, options){
+            if(options.login.redirect){
+                return res.redirect(options.login.redirect);
+            }
             res.json( req.user );
         }
     },
@@ -24,9 +27,27 @@ module.exports = [
         path: '/user/logout',
         secure: true,
         method: 'get',
-        handler: function(req, res){
+        handler: function(req, res, options){
             req.logOut && req.logOut();
+            if(options.login.logoutRedirect){
+                return res.redirect(options.login.logoutRedirect);
+            }
             res.json({ok:true});
+        }
+    },
+    {
+        path: '/user/changepass',
+        secure: true,
+        method: 'post',
+        handler: function(req, res, userctrl){
+            userctrl.changePassword(req.user, req.body.oldpasswd, req.body.newpasswd).then(
+                u=>{
+                    res.json( req.user );
+                },
+                e=>{
+                    res.json({error:e});
+                }
+            );
         }
     },
     {
@@ -46,7 +67,7 @@ module.exports = [
         secure: false,
         method: 'get',
         ignoreBasePath: true,
-        handler: function(req, res){
+        handler: function(req, res, options){
             let code = req.params.code;
             let store = req.orm;
             store.user.findOne({where:{confirmcode:code}}, function(err, usr){
@@ -57,7 +78,7 @@ module.exports = [
                     usr.save();
                     req.logIn(usr, function(err2) {
                         if (err) { return res.json({error: err2}); }
-                        return res.redirect('/');
+                        return res.redirect(options.login.confrimRedirect || '/');
                     });
                 } else {
                     return res.json({error: 'user.not.exist'});
@@ -69,7 +90,7 @@ module.exports = [
         path: '/user/register',
         secure: false,
         method: 'post',
-        handler: function(req, res, store){
+        handler: function(req, res, store, options){
             var msg;
             var u = {
                 email: req.body.email,
@@ -77,7 +98,11 @@ module.exports = [
                 password: req.body.password,
                 salt: salt.new(),
             };
-            msg = validateUser(u);
+            if(options.login.registrationAllowed!=undefined && options.login.registrationAllowed==false){
+                msg = "registration.not.allowed";
+            } else {
+                msg = validateUser(u);
+            }
             if(msg){
                 res.json({error: msg});
                 return;

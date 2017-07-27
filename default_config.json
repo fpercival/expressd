@@ -53,6 +53,11 @@
             }
         }
     },
+    "login": {
+        "redirect": "",
+        "confrimRedirect": "/",
+        "logoutRedirect": ""
+    },
     "log": {
         "filter": "*",
         "level": "debug"
