@@ -49,6 +49,16 @@ function Users(){
         );
         next();
     };
+
+    this.start = function(next, api, store, options){
+        if(!options.deleteusers){
+            next();
+        } else {
+            store.user.destroy({}, function(){
+                next();
+            });
+        }
+    };
 }
 
 module.exports = Users;
