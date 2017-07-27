@@ -16,19 +16,19 @@ function Mailer(){
     this.order = 20;
 
     this.init = function(next, _app, opts){
+console.log('opts.mailer.mail', opts.mailer.mail);
         transport = nodemailer.createTransport( opts.mailer.mail );
         app = _app;
-        app.on('express.loading', function(express){
+        app.on('express.loading', (express)=>{
             express.use(
                 (req, res, next)=>{
-                    req.sendMail = ()=>{
-                        let arg1 = arguments[0];
+                    req.sendMail = (arg1, arg2)=>{
                         if(typeof arg1 == "string"){
-                            return this.sendTemplate(arg1, arguments[1]);
+                            return this.sendTemplate(arg1, arg2);
                         } else {
                             return this.sendmail(arg1);
                         }
-                    }
+                    };
                     next();
             }
             )
@@ -45,7 +45,7 @@ function Mailer(){
     };
 
     this.sendmail = function(mailObj, object){
-        var obj = object || {};
+        let obj = object || {};
         log.debug('mailObj', mailObj);
         ['to', 'subject', 'text', 'html'].forEach(
             key => {
@@ -59,6 +59,7 @@ function Mailer(){
                     log.error(err);
                     reject(err);
                 } else {
+log.warn('mail sent', info);
                     resolve(info);
                 }
             });
@@ -78,6 +79,7 @@ function Mailer(){
     };
 
     this.registerTemplate = function(tplObj){
+console.log('#### registering', tplObj.name );
         return new Promise((resolve, reject) => {
             dbstore.findOne({where:{name:tplObj.name}}, function(err, tpl){
                 if(err){
